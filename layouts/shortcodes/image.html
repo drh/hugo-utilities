@@ -1,0 +1,18 @@
+<!--
+Emits an <img ... > element. Accepts named parameters for the img attributes
+class, src, height, width, alt.
+
+Also accepts a link parameter that gives the href if the image should be
+embedded in a link, e.g., <a href...><img ...></a>.
+
+If a single positional parameter is provided, it's taken as the src attribute.
+-->
+{{- if .IsNamedParams -}}
+{{ with .Get "link" }}<a href="{{ . }}">{{ end -}}
+<img{{ with .Get "class" }} class="{{ . }}"{{ end }} src="{{ .Get "src" -}}"
+{{- with .Get "width" }} width="{{ . }}"{{ end -}}
+{{- with .Get "height" }} height="{{ . }}"{{ end }} alt="{{ .Get "alt" }}">
+{{- if .Get "link" }}</a>{{ end -}}
+{{ else -}}
+<img src="{{ .Get 0 }}" alt>
+{{- end -}}

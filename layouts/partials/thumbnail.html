@@ -1,0 +1,18 @@
+<!-- Call with
+    (dict
+        "resources" page resources
+        "path" path to full-size images in resources
+        "size"  size of largest dimension in the thumbnail [default 100]
+    )
+    Generates and returns a thumbnail image for the given image.
+-->
+{{ $image := .resources.Get .path }}
+{{ $size := or .size 100 }}
+{{ with $image }}
+    {{ if ge .Width .Height }}
+        {{ $image = .Resize (printf "%dx" $size) }}
+    {{ else -}}
+        {{ $image = .Resize (printf "x%d" $size) }}
+    {{ end -}}
+{{- end -}}
+{{ return $image }}
