@@ -1,8 +1,3 @@
-<!-- Call with
-    (dict
-        "tmpl" template path
-        "page" a regular page
-    )
-Issues a trace message via warnf as shown below.
+<!-- Call with the page that's being rendered.
 -->
-{{ warnf "%v rendered with %v" .page.File.Path .tmpl }}
+{{ warnf "%v rendered with %v" .File.Path templates.Current.Parent.Filename }}
